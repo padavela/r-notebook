@@ -1,0 +1,208 @@
+Arithmetic with R
+
+```{r}
+5+5
+10-2
+3*5
+(5+5)/2
+28%%6
+
+```
+variable assigment
+```{r}
+x=10
+y=9
+x+y
+```
+
+
+Basic data types in R
+
+```{r}
+numero=423
+caracter="universal"
+logico=FALSE #comentario
+class(logico)
+
+```
+```{r}
+numerico = c(1,2,3)
+
+poker = c(140,-50,-20,-120,-240)
+ruleta = c(-24,-50,10,350,10)
+
+
+
+
+```
+Nombrado de verctores
+
+```{r}
+names(poker) = c("lunes","martes","miercoles","jueves","viernes")
+poker
+
+```
+
+Seleccion por comparacion
+
+```{r}
+edad =20
+edad >=18
+
+seleccion_vector = poker > 0
+seleccion_vector
+
+poker_win = poker[seleccion_vector]
+poker_win
+
+
+```
+
+Calculos
+
+```{r}
+vector_x = c(2,7,8)
+vector_y = c(-5.10,22)
+resultado = vector_x + vector_y #solo puedo operar vectores de las mismas dimensiones
+resultado
+```
+
+seleccion de vectores
+
+```{r}
+poker
+poker [3] #en R empieza con 1 no con 0
+poker [c(2,3,4)] #otra manera de seleccionar un vector por medio de colecciones
+poker [2:5]  #para seleccionar donde inicia y donde termina la seleccion
+
+```
+Matrices
+
+```{r}
+matrix(1:9, byrow=TRUE, nrow=3)
+
+```
+Analizar matrices
+
+```{r}
+new_hope <- c(246.998,314.4)          #Primer valor ganancias obtenidas por la pelicula en USA, el segundo valor fuera de USA
+empire_strikes <- c(290.475,247.900)
+return_jedi <- c(309.306,165.8)
+
+box_office <- c(new_hope, empire_strikes, return_jedi)  #Unir los valores en una sola coleccion
+box_office
+
+stars_wars_matrix <- matrix(box_office, byrow = TRUE, nrow = 3)       #
+stars_wars_matrix
+
+
+```
+
+Nombrado de Matrices
+```{r}
+region <- c("US", "NON-US")
+titles <- c("A new hope", "the empire strikes back", "return of the jedi")
+
+colnames(stars_wars_matrix) <- region
+rownames(stars_wars_matrix) <- titles
+stars_wars_matrix
+
+```
+Rowsums
+
+```{r}
+rowSums(stars_wars_matrix)     #suma de cada una de las filas
+colSums(stars_wars_matrix)     #suma de cada una de las columnas
+
+```
+
+cbind y rbind
+
+```{r}
+
+total_revenue_by_title <- rowSums(stars_wars_matrix)    
+total_revenue_by_region <-colSums(stars_wars_matrix)
+
+total <- cbind(stars_wars_matrix,total_revenue_by_title)
+total <- rbind(total,total_revenue_by_region)
+total
+
+```
+
+Seleccion elementos de matriz
+
+```{r}
+stars_wars_matrix
+
+stars_wars_matrix[1,2]
+stars_wars_matrix[1:2,2]
+
+stars_wars_matrix[c(1,3),1] #indico que valores quiero extraer y de que columna
+stars_wars_matrix[c(1,3),]  #si no le indico la columna trae todos los valores
+
+```
+Operaciones con matrices
+
+
+```{r}
+stars_wars_matrix/5
+
+
+```
+
+Factores
+
+```{r}
+sex_vector <- c("Masculino", "Femenino", "Femenino", "Masculino", "Masculino")
+factor_sec_vector <- factor(sex_vector)
+factor_sec_vector
+
+```
+```{r}
+temperature_vector <- c("alto", "bajo", "alto", "medio")   #categorias ordinales
+factor_temperature_vector <- factor(temperature_vector, order=TRUE, levels = c("bajo","medio","alto"))  #definimos que tiene mas valor y que menos
+factor_temperature_vector
+
+```
+
+Factores de nivel
+
+```{r}
+survey_vector <- c("M","F","F","M","M")
+factor_survey_vector <- factor(survey_vector)
+factor_survey_vector
+levels(factor_survey_vector) <- c("Femenino","Masculino")  #transformamos las categorias
+
+```
+
+Summary
+
+```{r}
+summary(factor_survey_vector)
+
+```
+Factores Ordenados
+
+```{r}
+male <- factor_survey_vector[1]
+female <- factor_survey_vector[2]
+
+male > female
+
+
+speed_vector <- c("medio","lento","lento","medio","rapido")
+factor_speed_vector <- factor(speed_vector, ordered=TRUE,levels = c("lento","medio","rapido"))
+factor_speed_vector
+
+speed_1 <- factor_speed_vector[2]
+speed_5 <- factor_speed_vector[5]
+
+speed_1 > speed_5
+speed_1 < speed_5
+
+```
+
+
+
+
+
