@@ -1,0 +1,184 @@
+Equality
+
+```{r}
+"Rchitect" != "rchitec" #R distingue entre mayusculas y minusculas
+TRUE==FALSE
+-6*14 != 17-101
+TRUE==1
+
+-6*5+2>=-10+1 #compara la operacion dando un resultado logico
+"raining" <= "raining dogs" #cuenta la cantidad de elementos de la cadena
+TRUE < FALSE #1 no es menor que 0
+
+
+```
+Comparar vectores
+
+```{r}
+linkedin <- c(16,9,13,5,2,17,14)
+facebook <- c(17,9,16,5,2,13,14)
+
+linkedin > 15 #compara con cada uno de los elementos de todo el vector
+facebook <= 5
+
+linkedin > facebook #el vector debe de ser de las mimas dimensiones
+
+
+
+```
+Compare matrices
+
+```{r}
+views <- matrix(c(linkedin,facebook), nrow=2, byrow=TRUE)
+views
+
+views ==13
+views <= 14
+
+```
+
+& and |
+
+```{r}
+linkedin
+last <- tail(linkedin,1) #tail obtiene una cantidad de elementos de la cola de la coleccion, head se refiere a los primeros
+last > 5 | last < 10 #operador or, si alguno da verdadero es verdadero
+last > 15 & last <= 20 #operador and, si alguno da falso ya no se cumple
+
+linkedin > 10 & facebook < 10 #hace la validacion con cada uno de los elementos
+linkedin >= 12 | facebook >= 12
+
+```
+The if statement
+
+```{r}
+medium <- "Linkedin"
+num_view <- 14
+
+if(medium == "Linkedin"){
+    print("Showing Linkedin information")
+}
+
+if(num_view >15){
+  print("You are popuar!")
+}
+
+
+
+if(medium == "Linkedin"){
+  print("Showing Linkedin information")
+} else {
+  print("Unknow medium")  
+}
+
+if(num_view >15){
+  print("You are popuar!")
+} else {
+  print("Try to be more visible")
+}
+
+
+
+if(medium == "Linkedin"){
+    print("Showing Linkedin information")
+} else if (medium=="Facebook"){
+  print("Showing Facebook information")
+} else {
+  print ("Unknown medium")
+}
+
+if(num_view >15){
+  print("You are popuar!")
+} else if (num_view <= 15 & num_view > 10){
+  print("Your number of views is average")
+} else {
+  print("Try to be more visible")
+}
+
+```
+
+```{r}
+result <- ""
+number <- 6
+
+if (number < 10){
+  if(number <5){
+    result <- "extra small"
+  }
+  else {
+    result <- "small"
+  }
+} else if (number < 100){
+  result <- "medium"
+} else {
+  result <- "large"
+}
+
+print(result)
+
+```
+Loop permite iteraciones
+
+Write a while loop
+
+```{r}
+speed <- 64
+while (speed > 30){
+  print("Slow down!")
+  speed <- speed - 7
+}
+
+```
+```{r}
+
+while (speed > 30){
+  print(paste("Your speed is",speed)) #Concatenar
+  if(speed >= 48){
+    print("Slow down big time!")
+    speed <- speed - 11
+  } else {
+    print("Slow down!")
+    speed <- speed -6
+  }
+}
+
+speed
+```
+
+Stop the while loop: break
+
+```{r}
+speed <- 75
+
+while (speed > 30){
+  print(paste("Your speed is", speed))
+    if (speed > 80){
+    break
+  }
+    if(speed > 48){
+    print("Slow down bis time!")
+    speed <- speed - 11
+  } else {
+    print("Slow down!")
+    speed <- speed -6
+  }
+}
+
+```
+
+Build a while loop from scratch
+
+```{r}
+i <- 1
+
+while(i <= 10){
+  print(3*i)
+  if((i*3) %% 8 == 0){  #%% es el mod, residuo
+    break
+  } 
+  i <- i + 1
+}
+
+```
+
+
