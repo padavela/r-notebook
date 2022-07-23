@@ -20,5 +20,74 @@ planets_df
 
 ```
 
+Selección de elementos de data frame
 
+```{r}
+planets_df[1,3] #Primero fila luego columna empezando de 1 no 0
+planets_df[4,] #Todos los valores de una columna en particular
+planets_df[1:5,"diameter"] #Datos por segmentos, slicing
+
+rings_vector <-- planets_df$rings   #$ me da acceso a las columnas de la estructura
+planets_df[rings_vector,]   #Todos los verdadedos del dataframe
+planets_df[!rings_vector,]  #Todos los falsos del dataframe
+planets_df[,]  #Veo todos los datos
+
+subset(planets_df,subset = diameter<1) #Permite a travez de un dataframe filtrados mas especificos
+subset(planets_df,subset = rings==TRUE)
+
+```
+Sorting
+
+```{r}
+a<-c(100,10,1000)
+order(a)
+a[order(a)]
+
+positions<-order(planets_df$diameter)#ordeno segun la columna del dataframe
+positions
+
+planets_df[positions,] #obtengo todo el dataframe ordenado por el diametro
+
+
+```
+
+Listas
+
+```{r}
+my_vector <- 1:10 #Vector valores del 1 al 10
+my_matrix <- matrix(1:9, ncol = 3) #Matriz de 3 columnas
+my_df <- mtcars[1:10,] #Dataframe primeras 10 filas y todas las columnas
+
+my_list <- list(my_vector, my_matrix, my_df)  #a la lista le ingreso las colecciones para construirla
+my_list
+
+names(my_list) <- c("vec","mat","df") 
+my_list
+
+```
+
+
+
+
+```{r}
+mov <- c("The Shining")
+act <- matrix(c("Jack Nicholson","Shelley Duvall","Danny Lloyd","Scatman Crothers","Barry Nelson"))
+
+scores <- c(4.5,5,4)
+sources <- c("IMDb1","IMDb2","IMDb3")
+comments <- c("Best Horror Film I Have Ever Seen","A truly brilliant and scary film from Stanley Kubrick","A masterpiece of psychological horror")
+rev <- data.frame(scores, sources, comments)
+
+shining_list <- list(moviename=mov, actors=act, reviews=rev) #manera distinta para nombrado de los elementos de la lista
+shining_list
+
+```
+
+Seleccion
+
+```{r}
+shining_list[[2]][1] #Identifico el indice y luego el elemento en particular
+
+
+```
 
