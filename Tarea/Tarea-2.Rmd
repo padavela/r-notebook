@@ -1,0 +1,126 @@
+---
+title: "Tarea 2"
+author: "Pablo David Velásquez Vela"
+---
+
+__Funciones en R__
+
+Una función es un conjunto de instrucciones que convierten las entradas (inputs) en resultados (outputs) deseados.
+
+Las funciones poseen cuentan con las siguientes partes:
+
+-Entradas o argumentos: sirven para ingresar información necesaria para realizar el procedimiento de la función. Los argumentos pueden estar vacíos y a la espera de que el usuario ingrese valores, o pueden tener valores por defecto, esto significa que si el usuario no ingresa un valor, la función usará el valor por defecto. Una función puede tener o no argumentos de entrada.
+-Cuerpo: está formado por un conjunto de instrucciones que transforman las entradas en las salidas deseadas. Si el cuerpo de la función está formado por varias instrucciones éstas deben ir entre llaves { }.
+-Salidas: son los resultados de la función. Toda función debe tener al menos un resultado. Si una función entrega varios tipos de objetos se acostumbra a organizarlos en una lista que puede manejar los diferentes tipos de objetos.
+
+
+Las funciones en R son tratadas como cualquier otro objeto. Para crearlas utilizamos el comando function(), el cual crear objetos de tipo function, de la siguiente manera:
+
+nombre_de_la_función <- function(Argumento1, Argumento2,...) {
+
+  ... código del programa....
+  
+  return(resultado)
+}
+
+```{r}
+maximo <- function(a, b) {
+  if (a > b) {
+    m <- a
+  } else {
+    m <- b
+  }
+  m
+}
+maximo(10, 8)
+```
+Los argumentos de una función son una serie de valores (opcionales) que se pasan a la función, de modo que ciertas variables dentro de estas posean diferentes valores en cada llamada a la función.
+
+```{r}
+area_rectangulo <- function(lado1, lado2) 
+{
+  area <- lado1 * lado2
+  print(paste("el área es ", area))
+}
+area_rectangulo(lado1 = 2, lado2 = 3)
+
+```
+
+Hay un argumento que tiene un uso especial en R, denominando … (tres puntos). Este tiene la capacidad de capturar todos los valores pasados a la función que no coinciden con ningún argumento. De este modo, podemos pasar a una función una cantidad no prefijada de valores.
+
+```{r}
+inverso <- function(...) {
+  v <- unlist(list(...))  # Asigna los argumentos a un vector
+  x <- 1/v
+  return(x)
+}
+inverso(2,10) # Se comporta como la función anterior
+```
+
+En muchas ocasiones deseamos que las funciones al finalizar su ejecución devuelvan algún valor. Para esto tenemos dos posibilidades.
+
+La primea es hacer que la ultima linea de código evaluada dentro de una función sea el valor que queremos que sea devuelto.
+
+La segunda alternativa es indicarlo explícitamente mediante el comando return(). En este ultimo caso, cuando se ejecuta esta instrucción dentro de una función, esta finaliza inmediatamente devolviendo el valor indicado. Lo común es reservar esta alternativa para devolver «señales» en caso de que la función tenga inconvenientes. Por ejemplo, en caso de que un argumento no sea consistente con lo esperado podemos devolver algún valor que nos indique de esta situación.
+
+
+__Familia apply__
+
+La función lapply() nos ayuda a aplicar funciones en objetos de lista y devuelve un objeto de lista de la misma longitud. La función lapply() en el lenguaje R toma una lista, un vector o un marco de datos como entrada y proporciona una salida en forma de objeto de lista. Dado que la función lapply() aplica una determinada operación a todos los elementos de la lista, no necesita un MARGEN.
+
+Sintaxis: lapply( x, fun )
+
+Parámetros:
+
+x: determina el vector de entrada o un objeto.
+fun: determina la función que se va a aplicar a los datos de entrada.
+
+```{r}
+# creando datos de muestra
+nombres <- c("jose", "pedro","marvin","ana","sofia")
+print( "datos originales:")
+nombres
+
+# aplicando la funcion lapply()
+print("datos despues de lapply():")
+lapply(nombres, toupper)
+
+```
+
+La función sapply() nos ayuda a aplicar funciones en una lista, un vector o un marco de datos y devuelve una matriz o un objeto matriz de la misma longitud. La función sapply() en el lenguaje R toma una lista, un vector o un marco de datos como entrada y proporciona una salida en forma de matriz u objeto de matriz. Dado que la función sapply() aplica una determinada operación a todos los elementos del objeto, no necesita un MARGEN. Es lo mismo que lapply() con la única diferencia del tipo de objeto de retorno.
+
+Sintaxis: sapply( x, fun )
+
+Parámetros:
+
+x: determina el vector de entrada o un objeto.
+fun: determina la función que se va a aplicar a los datos de entrada.
+
+```{r}
+# creando datos de muestra
+sample_data<- data.frame( x=c(1,2,3,4,5,6), y=c(7,8,9,10,11,12))
+print( "datos originales:")
+sample_data
+
+# aplicando la funcion sapply()
+print("datos despues de lapply():")
+sapply(sample_data, max)
+
+```
+
+
+La función vapply() es similar a sapply, pero tiene un tipo de valor de retorno preespecificado, por lo que puede ser más seguro (ya veces más rápido) de usar. Requiere que se especifique qué tipo de datos se espera. Ejemplo, devolver un integer.
+
+Sintaxis: vapply( x, fun, fun.value )
+
+x: determina el vector de entrada o un objeto.
+fun: determina la función que se va a aplicar a los datos de entrada.
+fun.value: determina el tipo de datos que espera. 
+
+Espero que cada elemento de la lista devuelva un solo valor numérico, por lo que FUN.VALUE = numeric (1).
+
+```{r}
+vec <- c(1:10)
+vapply(vec, sum, numeric(1))
+```
+
