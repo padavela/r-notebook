@@ -1,0 +1,190 @@
+Functions
+
+```{r}
+length(linkedin)
+head(linkedin,2)
+tail(linkedin,2)
+
+help("length")  #se utiliza para ver que hace una funcion
+?lenght         #hace lo mismo que help, diferentes sintaxis
+matrix()#
+list()
+
+```
+Use a function
+
+```{r}
+avg_li <- mean(linkedin)   #mean es una funcion para el promedio
+avg_li
+sum(linkedin)
+abs(linkedin)
+
+```
+Write your own function
+
+```{r}
+pow_two <- function(arg){
+  arg**2
+}
+pow_two(2)
+
+sum_abs <- function(arg1, arg2){
+  abs(arg1) + abs(arg2)
+}
+
+sum_abs(-2,3)
+
+hello <- function(){
+  print("Hi there!")
+  return (TRUE)
+}
+
+hello()
+
+pow_two <- function(x,print_info=TRUE){
+  y <- x^2
+  if (print_info){
+    print(paste(x,"to the power to equals",y))
+  }
+  return(y)
+}
+
+pow_two(3)
+
+interpret <- function(num_views){
+  if(num_views > 15){
+    print("You are popular!")
+    return(num_views)
+  } else {
+    print("try to be more visible!")
+    return(0)
+  }
+}
+
+interpret(linkedin[1])
+
+interpret_all <- function(views, return_sum=TRUE){
+  count <- 0
+  for(v in views){
+    count <- count + interpret(v)
+  }
+  if (return_sum){
+    return (count)
+  } else {
+    return (NULL)
+  }
+}
+
+interpret_all(linkedin)
+
+
+```
+```{r}
+install.packages("ggplot2")
+
+```
+```{r}
+library(ggplot2) #ggplot2 libreria para armar graficas estadisticas
+
+mtcars
+
+qplot(mtcars$wt, mtcars$hp)  #signo $ para acceder a la columna
+
+
+
+```
+
+The apply family
+
+lappy
+
+```{r}
+pioneers <- c("GAUSS:1777","BAYES:1702","PASCAL:1623","PEARSON:1857")
+
+split_math <- strsplit(pioneers, split=":") #
+
+split_low <- lapply(split_math, tolower)
+
+select_first <- function(x){
+  x[1]
+}
+
+names <- lapply(split_low, select_first)
+
+select_second <- function(x){
+  x[2]
+}
+
+years <- lapply(split_low, select_second)
+
+```
+lapply and anonymous functions
+
+```{r}
+split_low
+names <- lapply(split_low, function(x){x[1]})
+years <- lapply(split_low, function(x){x[2]})
+
+```
+
+Use lapply with additional arguments
+
+```{r}
+select_el <- function(x,index){
+  x[index]
+}
+
+select_el(split_low, 1)
+
+names <- lapply(split_low, select_el, 1) #el resultado de lapply es una lista
+years <- lapply(split_low, select_el, 2)
+
+```
+
+sapply
+
+```{r}
+names <- sapply(split_low, select_el, 1) #el resultado es un vector no una lista como lapply
+
+extreme_avg <- function(x){
+  (min(x) + max(x))/2
+}
+
+vec1 <- c(3,8,7,6)
+vec2 <- c(8,8,7,2)
+vec3 <- c(10,1,11,16)
+
+temp <- list(vec1,vec2,vec3)
+
+
+sapply(temp, extreme_avg)  #el tipo de dato debe de ser el mismo
+
+
+
+```
+vapply
+
+```{r}
+basics <- function(x){
+  c(min = min(x), mean = mean(x), max = max(x))
+}
+
+basics(linkedin)
+
+temp
+vapply(temp, basics, numeric(3)) #le indico que tipo de dato es el que se va devolver
+
+```
+Mathematical utilities
+
+```{r}
+errors <- c(1.9,-2.6,4.0,-9.5,-3.4,7.3)
+print (sum(abs(round(errors))))
+
+```
+
+
+
+
+
+
