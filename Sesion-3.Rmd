@@ -181,4 +181,85 @@ while(i <= 10){
 
 ```
 
+Loop over a vector
+
+```{r}
+linkedin <- c(16,9,13,5,2,17,14)
+for (l in linkedin){
+  print(l)
+}
+
+for (i in 1:length(linkedin)){ #definimos la variable que maneja el valor durante cada iteracion, es un contador
+  print(linkedin[i])
+}
+
+```
+
+Loop over a list
+
+```{r}
+nyc <- list(pop = 8405837, boroughs = c("Manhatan","Bronx","Brooklyn","Queens","Staten Island"), capital=FALSE)
+
+for (n in nyc){
+  print(n)
+}
+
+for (i in 1:length(nyc)){
+  print(nyc[[i]]) #Para aceder a una lista es con doble corchete
+}
+
+```
+Loop over a matrix
+
+```{r}
+new_hope <- c(246.998,314.4)          #Primer valor ganancias obtenidas por la pelicula en USA, el segundo valor fuera de USA
+empire_strikes <- c(290.475,247.900)
+return_jedi <- c(309.306,165.8)
+
+box_office <- c(new_hope, empire_strikes, return_jedi)  #Unir los valores en una sola coleccion
+box_office
+
+stars_wars_matrix <- matrix(box_office, byrow = TRUE, nrow = 3)       #
+stars_wars_matrix
+
+```
+
+```{r}
+for (i in 1:nrow(stars_wars_matrix)){
+  for (j in 1:ncol(stars_wars_matrix)){
+    print(paste("on row", i, "and column", j, "the board contains", stars_wars_matrix[i,j]))
+  } 
+}
+
+
+```
+
+```{r}
+linkedin <- c(16,9,13,5,2,17,14)
+
+for(li in linkedin){
+  if (li>10){
+    print("You´re popular!")
+  }
+  else{
+    print("Be more visible!")
+  }
+  if(li>16){
+    print("this is ridiculous, I´m outta here!")
+    break
+  }
+  if (li>5){
+    print("This is too emarrassing!")
+  }
+  
+  print(li)
+}
+
+```
+
+
+
+
+
+
 
