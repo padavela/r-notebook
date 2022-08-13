@@ -1,0 +1,158 @@
+Introduccion a tidyverse
+
+```{r}
+install.packages("gapminder")
+install.packages("dplyr")
+
+library("gapminder")    # permite hacer el llamado de la libreria que le indique como paremetro
+library("dplyr")
+
+#gapminder nos ofrece informacion demografica de distintos lugares, esperanza de vida producto interno bruto(pip), poblacion, año
+
+gapminder
+
+```
+
+Filtrando por un año
+
+```{r}
+gapminder %>%      # %>% es conocido como pipe en R esa instruccion se utiliza para ejecutar funciones luego de mandar datos
+  filter(year==1957)    # Filtrar por año
+
+```
+Filtrando sobre un pais y un año
+
+```{r}
+
+gapminder %>%      
+  filter(year==1957, country=="China")  # trabajar sobre el mismo filtro
+
+```
+Arranging observations by life expectancy
+
+```{r}
+gapminder %>%
+  arrange(lifeExp)  # Nos devuelve dependiendo de la columna indicandole si es ascendente o descendente
+
+# Sort in descending order of lifeExp
+
+gapminder %>%
+  arrange(desc(lifeExp))
+
+```
+
+Filtering and arranging
+
+```{r}
+gapminder %>%
+  filter(year == 1957) %>%
+  arrange(desc(pop))
+```
+
+Using mutate to change or create a column
+
+Las funciones no tienden a modifican el dataset, lo que se hace es asignarlo una nueva variable
+
+
+```{r}
+# Use mutate to change lifeExp to be in months
+
+gapminder %>%
+  mutate(lifeExp = 12 * lifeExp)     
+
+# Use mutate to create a new column called lifeExpMonths
+
+gapminder %>%
+  mutate(lifeExpMonths = 12 * lifeExp)
+
+```
+Combining filter, mutate and arrange
+
+```{r}
+gapminder %>%
+  filter(year == 2007) %>%
+  mutate(lifeExpMonths = 12 * lifeExp) %>%
+  arrange(desc(lifeExpMonths))
+
+```
+
+Visualizing with ggplot2
+
+```{r}
+install.packages("ggplot2")
+```
+```{r}
+library(ggplot2)
+
+gapminder_1952 <- gapminder %>%  # asigno una variable para el pipe indicado
+  filter(year == 1952)
+
+# primer parametro el dataset, aes permite recibir parametros eje x y eje y, "+" le indicamos el tipo de grafica
+ggplot(gapminder_1952, aes(x = pop, y = gdpPercap)) +
+  geom_point()
+
+```
+```{r}
+ggplot(gapminder_1952, aes(x = pop, y = lifeExp)) +
+  geom_point()
+```
+Putting the x-axis on a long scale
+
+```{r}
+gapminder_1952 <- gapminder %>% 
+  filter(year == 1952)
+
+ggplot(gapminder_1952, aes(x=pop, y=lifeExp))+
+  geom_point()+
+  scale_x_log10()  # cambio de escalas solo para el eje x
+
+```
+Putting the x-and y-axes on a log scale
+
+```{r}
+ggplot(gapminder_1952, aes(x=pop, y=gdpPercap)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_y_log10()
+
+```
+
+Adding color to a scatter plot
+
+```{r}
+ggplot(gapminder_1952, aes(x=pop, y=lifeExp, color=continent)) +  # envio un nuevo parametro que es color, por defecto es negro
+  geom_point() +
+  scale_x_log10()
+
+```
+Adding size and color to a plot
+
+```{r}
+# determinar que variable va ser el tamaño para cada punto
+ggplot(gapminder_1952, aes(x=pop, y=lifeExp, color=continent, size=gdpPercap)) +
+  geom_point() +
+  scale_x_log10()
+
+```
+Faceting
+
+Creating a subgraph for each continent
+
+```{r}
+gapminder_1952
+
+ggplot(gapminder_1952, aes(x=pop, y=lifeExp)) +
+  geom_point() +
+  scale_x_log10() +
+  facet_wrap(~ continent)            # sub graficas por continente
+
+```
+Faceting by year
+
+```{r}
+ggplot(gapminder, aes(x=gdpPercap, y=lifeExp, color=continent, size=pop)) +
+  geom_point() +
+  scale_x_log10() +
+  facet_wrap(~ year)             #sub graficas por año
+
+```
