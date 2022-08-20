@@ -312,3 +312,25 @@ counties_selected %>%
   count(metro)
 
 ```
+Selecting columns
+
+```{r}
+counties %>%
+  select(state, county, population, professional:production) %>%
+  arrange(desc(service))  # La variable service se encuentra dentro del rango seleccionado
+
+counties %>%
+  select(state, county, population, ends_with("work")) %>%
+  filter(public_work >= 50)
+
+counties %>%
+  select(state, county, population, ends_with("income"))
+
+counties %>%
+  select(state, county, population, contains("at"))
+
+```
+
+
+
+
