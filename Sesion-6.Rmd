@@ -332,5 +332,49 @@ counties %>%
 ```
 
 
+Renaming a column after count
 
+```{r}
+counties %>%
+  count(state) %>%
+  rename(num_conties = n)
+
+counties %>%
+  select(state, county, poverty_rate = poverty)
+
+```
+
+Using transmute
+
+```{r}
+counties %>%
+  transmute(state, county, population, density = population/land_area) %>%
+  filter(population >= 1000000) %>%
+  arrange(desc(density))
+```
+
+Choosing among the four verbs
+
+```{r}
+# Change the name of the unemployment column
+
+counties %>%
+  rename(unemployment_rate = unemployment)
+
+# Keep the state and county columns, and the columns containing poverty
+
+counties %>%
+  select(state, county, contains("poverty"))    # contains muestra las columnas que contengan la palabra indicada
+
+# Calculate the franction_women column without dropping the other columns
+
+counties %>%
+  mutate(fraction_women = women/population)     # con mutate trae todas las columnas del dataset
+
+# Keep only the state, county, and employment_rate columns
+
+counties %>%
+  transmute(state, county, employment_rate = employed/population)    # con transmute puedo indicar las columnas del dataset
+
+```
 
