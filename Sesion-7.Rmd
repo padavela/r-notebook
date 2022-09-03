@@ -2,6 +2,7 @@
 
 ```{r}
 library(tidyverse)
+library(dplyr)
 
 sets <- read_csv('sets.csv')
 themes <- read_csv('themes.csv')
@@ -129,3 +130,35 @@ parts %>%
 
 ```
 
+
+```{r}
+# Filtrar todos los valores que tengan un valor en n
+
+parts %>%
+  count(part_cat_id) %>%
+  right_join(part_categories, by = c("part_cat_id" = "id")) %>%
+  filter(is.na(n))
+```
+
+```{r}
+parts %>%
+  count(part_cat_id) %>%
+  right_join(part_categories, by = c("part_cat_id" = "id")) %>%
+  replace_na(list(n=0))          # Todo lo que encuentre dentro del resultado sea remplazado por 0 si el valor es nulo
+
+```
+
+Joining themes to their children
+
+```{r}
+themes %>%
+  inner_join(themes, by=c("id" = "parent_id"), suffix = c("_parent", "_child")) %>%
+  filter(name_parent == "Harry Potter")
+```
+
+```{r}
+themes %>%
+  inner_join(themes, by=c("id" = "parent_id"), suffix = c("_parent", "_child")) %>%
+  #id_child es el segundo nivel, lo queremos relacionar con un nivel previo
+  inner_join(themes, by=c("id_child" = "parent_id"), suffix = c("_parent", "grandchild") )
+```
